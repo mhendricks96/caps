@@ -7,9 +7,22 @@ const server = io(PORT);
 const caps = server.of('/caps');
 const logger = require('../logger');
 
-// const queue = {
-//   packet: {},
-// };
+const queue = {
+  orders: {},
+  pickup: {},
+  delivery: {},
+  backorders: {},
+  addOrders: function (order, id) {
+    this.orders[id] = order;
+    return order;
+  },
+  removeOrders: function (id) {
+    delete this.orders[id];
+  },
+  addBackorders: function (message, id){
+    this.backorders[id] = message;
+  },
+};
 
 caps.on('connection', (socket) => {
   console.log(`socket connected: ${socket.id}`);
@@ -18,7 +31,8 @@ caps.on('connection', (socket) => {
 
   caps.to('vendors').emit('ready for orders');
 
-  socket.on('pickup', payload => {
+  socket.on('pickup', (payload) => {
+    queue.addOrders(payload);
     logger('Pickup Requested', payload);
     caps.emit('pickup', payload);
   });
@@ -28,7 +42,11 @@ caps.on('connection', (socket) => {
   });
 
   socket.on('delivered', payload => {
-    logger('Delivered', payload);
+    console.log(queue);
+    queue.removeOrders();
     caps.emit('delivered', payload);
+    logger('Delivered', payload);
   });
 });
+
+module.exports = queue;

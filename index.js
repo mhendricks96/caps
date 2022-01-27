@@ -1,17 +1,17 @@
-'use strict';
+// 'use strict';
 
-/////Basic socket io setup////
-const socketio = require('socket.io');
+// /////Basic socket io setup////
+// const socketio = require('socket.io');
 
-const PORT = process.env.PORT || 3000;
+// const PORT = process.env.PORT || 3000;
 
-const server = socketio(PORT);
+// const server = socketio(PORT);
 
-server.on('connection', (socket) => {
-  console.log('new connection made');
-});
+// server.on('connection', (socket) => {
+//   console.log('new connection made');
+// });
 
-const socketioClient = require('socket.io-client');
+// const socketioClient = require('socket.io-client');
 
-const client = socketioClient.connect('http://localhost:3000');
+// const client = socketioClient.connect('http://localhost:3000');
 /////////////////

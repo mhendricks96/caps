@@ -1,5 +1,6 @@
 'use strict';
 
+
 function logger(eventName, payload) {
   class Event {
     constructor(eventName, time, payload) {
