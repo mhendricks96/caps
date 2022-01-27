@@ -29,7 +29,7 @@ setInterval(() => {
 
 socket.on('shipment was picked up', (payload) => {
   console.log('socket id: ', socket.id);
-  pickupRequest();
+  // pickupRequest();
 });
 
 socket.on('delivered', (payload) => {
